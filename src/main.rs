@@ -25,6 +25,7 @@ use std::time::Duration;
 use ansi_term::Color;
 use app_dirs::AppInfo;
 use docopt::Docopt;
+#[cfg(unix)]
 use pager::Pager;
 use serde_derive::Deserialize;
 
@@ -129,6 +130,7 @@ fn print_page(path: &Path, enable_styles: bool) -> Result<(), String> {
 }
 
 /// Set up display pager
+#[cfg(unix)]
 fn configure_pager(args: &Args, enable_styles: bool) {
     // Flags have precedence
     if args.flag_pager {
@@ -241,6 +243,7 @@ fn main() {
     let enable_styles = true;
 
     // Configure pager
+    #[cfg(unix)]
     configure_pager(&args, enable_styles);
 
     // Specify target OS
